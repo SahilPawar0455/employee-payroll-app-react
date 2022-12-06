@@ -125,6 +125,12 @@ th {
   opacity: 1;
   border: 0px solid #dddddd;
 }
+.dept-label{
+  font: normal normal nornal 14px/21px Roboto;
+  letter-spacing: 0px;
+  color: #3d3d3d;
+  opacity: 1;
+}
 
 tr:not(:first-child) {
   background: #ffffff 0% 0% no-repeat padding-box;
