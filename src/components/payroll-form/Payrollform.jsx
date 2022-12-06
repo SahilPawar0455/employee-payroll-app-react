@@ -61,9 +61,9 @@ function PayrollForm() {
             notes: formValue.notes
         };
        employee.createEmployee(employeeObject).then((data) =>{
-        console.log("data added ", data.data.data);
+        console.log("data added successfully ", data.data.data);
        }).catch(err => {
-        console.log("err while add");
+        console.log("error after data add");
        })
     }
 
