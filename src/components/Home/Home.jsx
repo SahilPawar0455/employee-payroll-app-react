@@ -37,7 +37,7 @@ class Home extends Component {
                     <div className="main-content">
                         <div className="header-content employee-header">
                             <div className="emp-detail-text">
-                                Employee Details
+                                Employee Details  {this.state.employee.length}
                             </div>
                             <Link to="/employee" className="add-button">
                                 <img src="" alt="" />+ Add User</Link>
@@ -63,7 +63,7 @@ class Home extends Component {
                                     <td>
                                         <img src={employee.profilePic === "../assets/profile-images/Ellipse -3.png" ? profile1 :
                                                 employee.profilePic === "../assets/profile-images/Ellipse -1.png" ? profile2 :
-                                                employee.profilePic === "../assets/profile-images/Ellipse -7.png" ? profile3 :  profile4
+                                                employee.profilePic === "../assets/profile-images/Ellipse -7.png" ? profile3 : profile4
                                             } alt="ProfilePic" srcset="" />
                                     </td>
                                     <td>{employee.employeeName}</td>
@@ -73,9 +73,8 @@ class Home extends Component {
                                     <td>{employee.salary}</td>
                                     <td>{employee.startDate}</td>
                                     <td>
-                                    <img onClick={() => {this.deleteEmployee(employee.id) && this.fetchData() }} src={deleteicon}alt="delete"
-                                                name={employee.id}/>
-                                            <img onClick={() => {this.updateEmployee(employee.id)}} src={edit} name={employee.id} alt="edit" />
+                                    <img onClick={() => {this.deleteEmployee(employee.id) && this.fetchData() }} src={deleteicon}alt="delete" name={employee.id}/>
+                                    <img onClick={() => {this.updateEmployee(employee.id)}} src={edit} name={employee.id} alt="edit" />
                                     </td>
                                  </tr>
                                 ))
