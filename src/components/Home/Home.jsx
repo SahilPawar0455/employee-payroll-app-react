@@ -8,6 +8,7 @@ import edit from "../assets/icons/create-black-18dp.svg";
 import deleteicon from "../assets/icons/delete-black-18dp.svg";
 import { withRouter, Link } from "react-router-dom";
 import EmployeeService from "../service/EmployeeService";
+import { Button } from "@mui/material";
 
 
 class Home extends Component {
@@ -30,6 +31,11 @@ class Home extends Component {
         this.fetchData();
     }
 
+    deleteEmployee(employeeId){
+        EmployeeService.deleteEmployee(employeeId);
+        window.location.reload();
+    }
+
     render() {
         return (
             <div>
@@ -39,8 +45,9 @@ class Home extends Component {
                             <div className="emp-detail-text">
                                 Employee Details  {this.state.employee.length}
                             </div>
-                            <Link to="/employee" className="add-button">
-                                <img src="" alt="" />+ Add User</Link>
+                            <Link to="/employee" >
+                                <Button className="add-button" variant="outlined" color="success">+ Add User</Button>
+                            </Link>
                         </div>
                     </div>
                     <div className="table-main">

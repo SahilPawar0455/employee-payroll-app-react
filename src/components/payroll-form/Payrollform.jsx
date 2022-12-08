@@ -7,6 +7,7 @@ import profile3 from "../assets/profile-images/Ellipse -8.png"
 import profile4 from "../assets/profile-images/Ellipse -7.png"
 import './Payrollform.css'
 import employee from '../service/EmployeeService'
+import Button from '@mui/material/Button';
 
 function PayrollForm() {
     const allDepartment = ["HR", "Sales", "Finance", "Engineer", "Others"]
@@ -206,11 +207,14 @@ function PayrollForm() {
                             value={formValue.notes} placeholder="" onChange={onnameChange}></textarea>
                     </div>
                     <div className="buttonParent">
-                        <Link to="/home" className="resetButton
-                        button cancelButton">Cancel</Link>
+                        {/* <Link to="/home" className="resetButton
+                        button cancelButton" variant="contained" color='error'>Cancel</Link> */}
+                         <Link to="/home">
+                            <Button className="resetButton button cancelButton" variant="contained" color='error'>Cancel</Button>
+                         </Link>
                         <div className="submit-reset">
-                            <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
-                            <button type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Reset</button>
+                            <Button type="submit" className="button submitButton" id="submitButton" variant="contained" color="success">{formValue.isUpdate ? 'Update' : 'Submit'}</Button>
+                            <Button type="reset" className="button resetButton" id="resetButton" onClick={onReset} variant="outlined" color="error">Reset</Button>
                         </div>
                     </div>
                 </form>
