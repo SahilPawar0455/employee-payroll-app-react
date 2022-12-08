@@ -36,6 +36,11 @@ class Home extends Component {
         window.location.reload();
     }
 
+    updateEmployee(employeeId){
+        console.log("update Employee");
+        this.props.history.push(`employee/${employeeId}`);
+    }
+
     render() {
         return (
             <div>

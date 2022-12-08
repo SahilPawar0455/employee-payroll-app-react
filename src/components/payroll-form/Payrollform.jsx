@@ -8,6 +8,8 @@ import profile4 from "../assets/profile-images/Ellipse -7.png"
 import './Payrollform.css'
 import employee from '../service/EmployeeService'
 import Button from '@mui/material/Button';
+import EmployeeService from '../service/EmployeeService';
+import Swal from 'sweetalert';
 
 function PayrollForm() {
     const allDepartment = ["HR", "Sales", "Finance", "Engineer", "Others"]
@@ -23,6 +25,34 @@ function PayrollForm() {
         isUpdate: false,
     });
 
+
+    const params = useParams();
+    useEffect(() => {
+        getEmployeeId(10);
+    }, []);
+
+
+    const getEmployeeId = (employeeId) => {
+        EmployeeService.findEmployee(employeeId).then((data) => {
+            let obj = data.data.data;
+            setData(obj);
+        })
+    }
+
+    const setData = (obj) => {
+        let array = obj.startDate;
+        setForm({
+            ...formValue,
+            ...obj,
+            id: obj.id,
+            employeeName: obj.employeeName,
+            profilePic: obj.profilePic,
+            gender: obj.gender,
+            department: obj.department,
+            salary: obj.salary,
+            notes: obj.notes
+        })
+    }
 
     const onCheckChange = (employeeName) => {
         let index = formValue.department.indexOf(employeeName);
@@ -61,11 +91,29 @@ function PayrollForm() {
             startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
             notes: formValue.notes
         };
-       employee.createEmployee(employeeObject).then((data) =>{
-        console.log("data added successfully ", data.data.data);
-       }).catch(err => {
-        console.log("error after data add");
-       })
+
+        if (formValue.isUpdate) {
+            EmployeeService.updateEmployee(params.empId, employeeObject)
+                .then((data) => {
+                    var value = window.confirm(data);
+                    if (value === true) {
+                        alert("update successfull!");
+                    } else {
+                        window.location.reload();
+                    }
+                });
+        } else {
+            employee.createEmployee(employeeObject).then((data) => {
+                console.log("data added successfully ", data.data.data);
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Added!',
+                text: `${employeeObject.name}'s data has been Added.`,
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
     }
 
     const onnameChange = (event) => {
@@ -209,9 +257,9 @@ function PayrollForm() {
                     <div className="buttonParent">
                         {/* <Link to="/home" className="resetButton
                         button cancelButton" variant="contained" color='error'>Cancel</Link> */}
-                         <Link to="/home">
+                        <Link to="/home">
                             <Button className="resetButton button cancelButton" variant="contained" color='error'>Cancel</Button>
-                         </Link>
+                        </Link>
                         <div className="submit-reset">
                             <Button type="submit" className="button submitButton" id="submitButton" variant="contained" color="success">{formValue.isUpdate ? 'Update' : 'Submit'}</Button>
                             <Button type="reset" className="button resetButton" id="resetButton" onClick={onReset} variant="outlined" color="error">Reset</Button>
